@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row mt-3 pb-3">
+        <a class="btn btn-primary" href="{% url "box_create" %}" role="button"><i class="bi bi-plus-fill"></i> Create Box</a>
+    </div>
+    <div class="row pb-3">
+        {% for box in boxes %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ box.name }}</h5>
+                    <p class="card-text">{{ box.description }}</p>
+                    <a href="#" class="btn btn-success"><i class="bi bi-play-fill"></i> Launch</a>
+                    <a href="{% url "box_delete" box.pk %}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i> Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No boxes available. <a href="{% url "box_create" %}">Create one?</a></p>
+        {% endfor %}
+    </div>
+{% endblock %}

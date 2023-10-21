@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row my-4">
+    <form method="post">
+        {% csrf_token %}
+        <h3>Are you sure you want to delete box {{ box.name }}?</h3>
+        <div class="d-flex flex-direction-row gap-2">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{% url "box_list" %}" role="button" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
