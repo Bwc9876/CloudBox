@@ -1,5 +1,10 @@
 # Cloud Box
 
+<p align="center">
+<a href="https://github.com/Bwc9876/CloudBox"><img src="https://raw.githubusercontent.com/Bwc9876/CloudBox/main/.github/assets/Cloud_Box_Logo.png" alt="Cloud Box Logo"/></a><br/>
+Cloud Box<br/>
+</p>
+
 A PaaS website for hosting remote VMs and SSH-ing into them. Built on top of Google Cloud Platform.
 
 This is a site for Technica 2023, it was made using the following stack:
