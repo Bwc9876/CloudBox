@@ -35,7 +35,6 @@ ALLOWED_HOSTS = ["*"] if DEBUG else ["localhost", os.getenv("DOMAIN")]
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -105,7 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-WSSH_PORT = 8001
+LOGIN_REDIRECT_URL = "box_list"
+
+WEB_SSH_PORT = 8001
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

@@ -22,6 +22,10 @@ This is a site for Technica 2023, it was made using the following stack:
 
 - Python 3.11
 - Poetry
+- Web SSH
+
+> ⚠️ **Warning**:  
+> Web SSH needs to be running and listening on ports 8001 for SSH access to work
 
 ### Development
 

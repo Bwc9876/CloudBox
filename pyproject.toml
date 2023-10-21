@@ -12,6 +12,7 @@ django-crispy-forms = "^2.1"
 webssh = "^1.6.2"
 python-dotenv = "^1.0.0"
 paramiko = "^3.3.1"
+google-cloud-compute = "^1.14.1"
 
 
 [build-system]

@@ -1,34 +1,52 @@
 {% extends "base.html" %}
 
+{% block title %}{{ formName }}{% endblock %}
+
+{% block heading %}{{ formName }}{% endblock %}
+
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <div class="row mb-4">
-        <div class="col">
-            <form novalidate class="form form-main" method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div id="{{ field.label }}_fieldset" class="my-4">
-                        <label id="{{ field.label }}_label" class="mb-3"
+{% if form.non_field_errors %}
+<div class="row invalid-feedbacks mt-4">
+    <ul class="text-danger">
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<div class="row">
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="row mb-4">
+            <div class="col">
+                <form novalidate class="form form-main" method="POST">
+                    {% load form_tags %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div id="{{ field.label }}_fieldset" class="my-4">
+                            <div class="form-floating">
+                                {{ field|setup_field:True }}
+                                <label id="{{ field.label }}_label"
                                        for="{{ field.id_for_label }}">{{ field.label|title }}</label>
-                                {{ field }}
-                        {% if field.errors %}
-                            <div id="{{ field.name }}-feedback" class="invalid-feedback d-block">
-                                <ul>
-                                    {% for error in field.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
                             </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button class="btn mt-4 w-100 btn-primary submit-button" type="submit">
-                    <span class="submit-word">{% block submitWord %}Save{% endblock %}</span>
-                </button>
-            </form>
+                            {% if field.errors %}
+                                <div id="{{ field.name }}-feedback" class="invalid-feedback d-block">
+                                    <ul>
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button class="btn mt-4 w-100 btn-primary submit-button" type="submit">
+                        <span class="submit-word">{% block submitWord %}Save{% endblock %}</span>
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock %}
 
