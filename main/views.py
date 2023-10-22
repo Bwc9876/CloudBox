@@ -14,14 +14,15 @@ import paramiko
 from .models import User, Box
 from .gcp_api import create, delete
 
-class FormNameMixin(ContextMixin):
 
+class FormNameMixin(ContextMixin):
     form_name = "Form"
 
     def get_context_data(self, **kwargs) -> dict[str, object]:
         context = super(FormNameMixin, self).get_context_data(**kwargs)
         context["formName"] = self.form_name
         return context
+
 
 class UserCreationForm(BaseCreate, FormNameMixin):
     class Meta:
@@ -30,34 +31,48 @@ class UserCreationForm(BaseCreate, FormNameMixin):
 
 
 class HomePageView(TemplateView):
-    template_name = 'home.html'
+    template_name = "home.html"
+
+
+class AboutPageView(TemplateView):
+    template_name = "about.html"
+
+
+class ContactPageView(TemplateView):
+    template_name = "contact.html"
+
+    def get_context_data(self, **kwargs) -> dict[str, object]:
+        context = super().get_context_data(**kwargs)
+        context["emails"] = ("BC1016579", "HC946859", "MK1020769", "EW1023319")
+
+        return context
+
 
 class UserCreationView(FormView, FormNameMixin):
     template_name = "registration/register.html"
     form_class = UserCreationForm
     form_name = "Register"
-    success_url = "/boxes/"   
-    
+    success_url = "/boxes/"
+
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
-        
+
 
 class BoxList(LoginRequiredMixin, ListView):
     model = Box
-    template_name = 'box_list.html'
-    context_object_name = 'boxes'
-    
+    template_name = "box_list.html"
+    context_object_name = "boxes"
+
     def get_context_data(self, **kwargs) -> dict[str, object]:
         context = super().get_context_data(**kwargs)
-        hostname = self.request.get_host().split(":")[0]
-        context["wsshUrl"] = f"{self.request.scheme}://{hostname}:{settings.WEB_SSH_PORT}"
+        context["request"] = self.request
         return context
 
     def get_queryset(self):
         return Box.objects.filter(user=self.request.user)
-    
+
 
 class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
     model = Box
@@ -69,7 +84,7 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
     def form_valid(self, form):
         form.instance.user = self.request.user
         key = paramiko.RSAKey.generate(4096)
-        form.instance.public_key = key.get_base64()
+        form.instance.public_key = f"{key.get_name()} {key.get_base64()}"
         temp_str = StringIO()
         key.write_private_key(temp_str)
         temp_str.seek(0)
@@ -78,9 +93,10 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
         form.instance.ip = create(f"C:{self.request.user.username}-{form.instance.name}", form.instance.public_key)
         return super().form_valid(form)
 
+
 class BoxDelete(DeleteView):
     model = Box
-    success_url = reverse_lazy("box_list")   
+    success_url = reverse_lazy("box_list")
     context_object_name = "box"
     template_name = "confirm.html"
     
@@ -91,4 +107,3 @@ class BoxDelete(DeleteView):
 
     def get_queryset(self):
         return Box.objects.filter(user=self.request.user)
-  

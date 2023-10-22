@@ -8,11 +8,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.2.6"
-django-crispy-forms = "^2.1"
 webssh = "^1.6.2"
-python-dotenv = "^1.0.0"
 paramiko = "^3.3.1"
 google-cloud-compute = "^1.14.1"
+gunicorn = "^21.2.0"
+black = "^23.10.0"
 
 
 [build-system]

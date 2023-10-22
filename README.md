@@ -25,7 +25,7 @@ This is a site for Technica 2023, it was made using the following stack:
 - Web SSH
 
 > ⚠️ **Warning**:  
-> Web SSH needs to be running and listening on ports 8001 for SSH access to work
+> Web SSH needs to be running and listening on port 8001 for SSH access to work
 
 ### Development
 
@@ -44,7 +44,11 @@ poetry install
 poetry run python manage.py migrate
 ```
 
-In production, point the frontend web server to the WSGI module in `CloudBox/wsgi.py`
+In production, point the frontend web server to the WSGI module in `cloud_box.wsgi`
+
+```sh
+poetry run gunicorn cloud_box.wsgi
+```
 
 ### Environment Variables
 

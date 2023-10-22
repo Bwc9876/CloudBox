@@ -7,17 +7,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(90deg, #cdffd8, #94b9ff);
+        }
+    </style>
 </head>
 <body class="vh-100 d-flex flex-column">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light user-select-none">
+        <nav class="navbar" style="background-color:white">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url "home" %}">
-                    Cloud Box
-                </a>
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url "box_list" %}">Boxes</a>
-                {% endif %}
+                
+                <div class="d-flex flex-direction-row gap-3 align-items-center">
+                    <a class="navbar-brand" href="{% url "home" %}">
+                        <img class="d-inline-block me-1 rounded" src="https://i.ibb.co/gJhh46m/Cloud-Box-Logo.jpg" alt="Cloud-Box-Logo"
+                            style="width:50px;height:50px;">
+                        CloudBox
+                    </a>
+                    <a class="active nav-link" href="{% url "home" %}"><i class="bi bi-house-fill"></i> Home</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url "box_list" %}"><i class="bi bi-box2-heart-fill"></i> Boxes</a>
+                    {% endif %}
+                    <a class="nav-link" href="{% url "contact" %}"><i class="bi bi-envelope-heart-fill"></i> Contact</a>
+                    <a class="nav-link" href="{% url "about" %}"><i class="bi bi-person-raised-hand"></i> About</a>
+                </div>
+                <div class="d-flex align-items-center flex-direction-row gap-3">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="#"><i class="bi bi-cloud-moon-fill"></i>Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="{% url "login" %}"><i class="bi bi-person-check-fill"></i> Login</a>
+                    <a class="nav-link" href="{% url "register" %}"><i class="bi bi-person-plus-fill"></i> Sign Up</a>
+                    {% endif %}
+                </div>
             </div>
         </nav>
     </header>

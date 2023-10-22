@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 
 from pathlib import Path
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = os.getenv("PROD") != "true"
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  "django-insecure-(_m!f&h77u())$ky84=4ii$*0o&$u+ke)!=zp38jdh%hz_zu-8" if DEBUG else os.getenv("SECRET_KEY")
+SECRET_KEY = (
+    "django-insecure-(_m!f&h77u())$ky84=4ii$*0o&$u+ke)!=zp38jdh%hz_zu-8"
+    if DEBUG
+    else os.getenv("SECRET_KEY")
+)
 
 ALLOWED_HOSTS = ["*"] if DEBUG else ["localhost", os.getenv("DOMAIN")]
 
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "main"
+    "main",
 ]
 
 MIDDLEWARE = [
