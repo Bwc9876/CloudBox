@@ -90,7 +90,7 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
         temp_str.seek(0)
         form.instance.private_key = temp_str.read()
 
-        form.instance.ip = create(f"C:{self.request.user.username}-{form.instance.name}", form.instance.public_key)
+        form.instance.ip = create(f"c-{self.request.user.username.lower()}-{form.instance.name.lower()}", form.instance.public_key)
         return super().form_valid(form)
 
 
@@ -102,7 +102,7 @@ class BoxDelete(DeleteView):
     
     def delete(self, request, *args, **kwargs):
         box = self.get_object()
-        delete(f"C:{box.user.username}-{box.name}")
+        delete(f"c-{box.user.username.lower()}-{box.name.lower()}")
         return super().delete(request, *args, **kwargs)
 
     def get_queryset(self):
