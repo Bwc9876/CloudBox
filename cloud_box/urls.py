@@ -19,12 +19,12 @@ from django.urls import path, include
 from main.views import *
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
-    path('about/', AboutPageView.as_view(), name='about'),
-    path('contact/', ContactPageView.as_view(), name='contact'),
-    path('boxes/', BoxList.as_view(), name='box_list'),
-    path("boxes/new/", BoxCreate.as_view(), name='box_create'),
-    path("boxes/delete/<int:pk>/", BoxDelete.as_view(), name='box_delete'),
-    path('register/', UserCreationView.as_view(), name='register'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path("", HomePageView.as_view(), name="home"),
+    path("about/", AboutPageView.as_view(), name="about"),
+    path("contact/", ContactPageView.as_view(), name="contact"),
+    path("boxes/", BoxList.as_view(), name="box_list"),
+    path("boxes/new/", BoxCreate.as_view(), name="box_create"),
+    path("boxes/delete/<int:pk>/", BoxDelete.as_view(), name="box_delete"),
+    path("register/", UserCreationView.as_view(), name="register"),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

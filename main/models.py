@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
+
 class User(AbstractUser):
     username = models.CharField(max_length=25, unique=True)
+
 
 class Box(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -12,7 +14,7 @@ class Box(models.Model):
     modified = models.DateTimeField(auto_now=True)
     private_key = models.CharField(max_length=1000)
     public_key = models.CharField(max_length=1000)
+    ip = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
-    
