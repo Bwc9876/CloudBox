@@ -42,6 +42,5 @@ def get_ssh_link(box, request) -> str:
         "port": 22,
         "username": "you",
         "privatekey": box.private_key,
-        "command": f"echo \"Hello {box.user.username}! Welcome to {box.name}!\"",
     }
     return f"{host}/?{urlencode(params)}"
