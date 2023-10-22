@@ -90,9 +90,10 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
         temp_str.seek(0)
         form.instance.private_key = temp_str.read()
 
-        form.instance.ip = create(f"c-{self.request.user.username.lower()}-{form.instance.name.lower()}", form.instance.public_key)
+        form.instance.ip = create(f"cb-{self.request.user.username.lower()}-{form.instance.name.lower()}", form.instance.public_key)
         return super().form_valid(form)
 
+# sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/sshd/sshd_config
 
 class BoxDelete(DeleteView):
     model = Box
@@ -100,10 +101,11 @@ class BoxDelete(DeleteView):
     context_object_name = "box"
     template_name = "confirm.html"
     
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         box = self.get_object()
-        delete(f"c-{box.user.username.lower()}-{box.name.lower()}")
-        return super().delete(request, *args, **kwargs)
+        print(f"cb-{box.user.username.lower()}-{box.name.lower()}")
+        delete(f"cb-{box.user.username.lower()}-{box.name.lower()}")
+        return super().form_valid(form)
 
     def get_queryset(self):
         return Box.objects.filter(user=self.request.user)
