@@ -12,6 +12,7 @@ from django.conf import settings
 import paramiko
 
 from .models import User, Box
+from .gcp_api import create, delete
 
 class FormNameMixin(ContextMixin):
 
@@ -73,6 +74,8 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
         key.write_private_key(temp_str)
         temp_str.seek(0)
         form.instance.private_key = temp_str.read()
+
+        form.instance.ip = create(f"C:{self.request.user.username}-{form.instance.name}", form.instance.public_key)
         return super().form_valid(form)
 
 class BoxDelete(DeleteView):
@@ -81,6 +84,11 @@ class BoxDelete(DeleteView):
     context_object_name = "box"
     template_name = "confirm.html"
     
+    def delete(self, request, *args, **kwargs):
+        box = self.get_object()
+        delete(f"C:{box.user.username}-{box.name}")
+        return super().delete(request, *args, **kwargs)
+
     def get_queryset(self):
         return Box.objects.filter(user=self.request.user)
   
