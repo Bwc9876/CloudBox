@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from google.oauth2 import service_account
 from google.cloud import compute_v1
 
@@ -5,7 +7,8 @@ project="annular-axe-402720"
 region="northamerica-northeast2"
 zone=f"{region}-a"
 
-credentials = service_account.Credentials.from_service_account_file('key.json')
+if settings.DEBUG:
+    credentials = service_account.Credentials.from_service_account_file('key.json')
 # If running locally. If we're in a VM, we set this to null
 
 client = compute_v1.InstancesClient(credentials=credentials)
