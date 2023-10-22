@@ -9,7 +9,7 @@
 <div class="row invalid-feedbacks mt-4">
     <ul class="text-danger">
         {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
+        <li>{{ error }}</li>
         {% endfor %}
     </ul>
 </div>
@@ -23,24 +23,25 @@
                     {% load util_tags %}
                     {% csrf_token %}
                     {% for field in form %}
-                        <div id="{{ field.label }}_fieldset" class="my-4">
-                            <div class="form-floating">
-                                {{ field|setup_field:True }}
-                                <label id="{{ field.label }}_label"
-                                       for="{{ field.id_for_label }}">{{ field.label|title }}</label>
-                            </div>
-                            {% if field.errors %}
-                                <div id="{{ field.name }}-feedback" class="invalid-feedback d-block">
-                                    <ul>
-                                        {% for error in field.errors %}
-                                            <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% endif %}
+                    <div id="{{ field.label }}_fieldset" class="my-4">
+                        <div class="form-floating">
+                            {{ field|setup_field:True }}
+                            <label id="{{ field.label }}_label" for="{{ field.id_for_label }}">{{ field.label|title }}</label>
                         </div>
+                        {% if field.errors %}
+                        <div id="{{ field.name }}-feedback" class="invalid-feedback d-block">
+                            <ul>
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
                     {% endfor %}
                     <button class="btn mt-4 w-100 btn-primary submit-button" type="submit">
+                        <span class="loading spinner-border spinner-border-sm d-none" role="status"
+                            aria-hidden="true"></span>
                         <span class="submit-word">{% block submitWord %}Save{% endblock %}</span>
                     </button>
                 </form>
@@ -48,5 +49,14 @@
         </div>
     </form>
 </div>
-{% endblock %}
+<script>
+    const submitButton = document.querySelector('.submit-button');
+    const submitWord = document.querySelector('.submit-word');
+    const loading = document.querySelector('.loading');
 
+    submitButton.addEventListener('click', () => {
+        submitWord.classList.add('d-none');
+        loading.classList.remove('d-none');
+    });
+</script>
+{% endblock %}
