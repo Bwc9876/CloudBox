@@ -2,3 +2,5 @@ __py_cache__/
 __pycache__/
 db.sqlite3
 .env
+key.json
+result
