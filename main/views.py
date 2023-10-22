@@ -30,7 +30,18 @@ class UserCreationForm(BaseCreate, FormNameMixin):
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
-
+    
+class AboutPageView(TemplateView):
+    template_name = 'about.html'
+    
+class ContactPageView(TemplateView):
+    template_name = 'contact.html'
+    
+    def get_context_data(self, **kwargs) -> dict[str, object]:
+        context = super().get_context_data(**kwargs)
+        context["emails"] = ("BC1016579", "HC946859", "MK1020769", "EW1023319")
+        
+        return context
 class UserCreationView(FormView, FormNameMixin):
     template_name = "registration/register.html"
     form_class = UserCreationForm
@@ -68,7 +79,7 @@ class BoxCreate(LoginRequiredMixin, CreateView, FormNameMixin):
     def form_valid(self, form):
         form.instance.user = self.request.user
         key = paramiko.RSAKey.generate(4096)
-        form.instance.public_key = key.get_base64()
+        form.instance.public_key = f"{key.get_name()} {key.get_base64()}"
         temp_str = StringIO()
         key.write_private_key(temp_str)
         temp_str.seek(0)

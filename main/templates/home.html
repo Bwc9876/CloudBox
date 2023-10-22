@@ -1,7 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to Cloud Box!</h1>
-<h3>Host a VM in the cloud!</h3>
-<button class="btn btn-dark">Get Started!</button>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <h1>Welcome to Cloud Box!</h1>
+    <h2 class="mb-3">Host a VM in the cloud!</h2>
+    {% if user.is_authenticated %}
+    <p><a href="{% url "box_list" %}" role="button" class="btn btn-dark"><em>Go To Your Boxes</em></a></p>
+    {% else %}
+    <p><a href="{% url "register" %}" role="button" class="btn btn-dark"><em>Get Started!</em></a></p>
+    {% endif %}
+</div>
+<div class="row">
+    <p>
+        Cloud Box is a web application that allows users to host virtual machines in the cloud. Users can create
+        virtual machines, start and stop them, and connect to them via SSH.
+    </p>
+</div>
+<div class="row">
+    <p>Enjoy a completely free virtual machine that lets you experiment and test! Get started now and get a virtual machine in under 5 minutes!</p>
+</div>
 {% endblock %}

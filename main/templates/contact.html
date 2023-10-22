@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block heading %}Contact{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <p>We can be reached at <a href="mailto:cloudbox.technica2023@gmail.com">cloudbox.technica2023@gmail.com</a></p>
+    </div>
+    <div class="row">
+        <p>List of individual team emails:</p>
+        <ul>
+            {% load form_tags %}
+            {% for email in emails %}
+            <li><a href="{{ email|add:"@wcupa.edu"|obfuscate }}">{{ email }}</a></li>
+            {% endfor %}
+        </ul>
+        <p>All these addresses end in <pre>@wcupa.edu</pre></p>
+    </div>
+</div>
+{% endblock %}

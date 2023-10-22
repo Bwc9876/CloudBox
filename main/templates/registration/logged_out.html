@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block heading %}You Have Been Logged Out{% endblock %}
+
+{% block content %}
+<div class="row">
+    <p>
+        Come Back Soon!
+    </p>
+    </div>
+<div class="row">
+    <a href="{% url "login" %}" role="button" class="btn btn-primary">Log Back In</a>
+</div>
+{% endblock %}
+
