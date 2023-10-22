@@ -55,5 +55,3 @@ poetry run gunicorn cloud_box.wsgi
 - `SECRET_KEY` - Secret key to use in Django
 - `PROD` - `true` or `false`, whether we're in production
 - `DOMAIN` - The domain to add to allowed hosts in Django
-
-Environment variables are automatically loaded from a `.env` file in the root of the repo.

@@ -9,7 +9,7 @@ class User(AbstractUser):
 
 class Box(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     private_key = models.CharField(max_length=1000)
