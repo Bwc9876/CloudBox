@@ -1,6 +1,7 @@
 from django import template
 from django.conf import settings
 from django.forms import BoundField
+from django.utils.http import urlencode
 
 register = template.Library()
 
@@ -41,7 +42,5 @@ def get_ssh_link(box, request) -> str:
         "port": 22,
         "username": "you",
         "privatekey": box.private_key,
-        "command": f"echo%20%22Hello%20{box.user.username}%21%20Welcome%20to%20{box.name}%22",
     }
-    params_encoded = "&".join([f"{k}={v}" for k, v in params.items()])
-    return f"{host}/?{params_encoded}"
+    return f"{host}/?{urlencode(params)}"
