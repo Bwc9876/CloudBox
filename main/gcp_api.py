@@ -7,8 +7,7 @@ project="annular-axe-402720"
 region="northamerica-northeast2"
 zone=f"{region}-a"
 
-if settings.DEBUG:
-    credentials = service_account.Credentials.from_service_account_file('key.json')
+credentials = service_account.Credentials.from_service_account_file('key.json') if settings.DEBUG else None
 # If running locally. If we're in a VM, we set this to null
 
 client = compute_v1.InstancesClient(credentials=credentials)
