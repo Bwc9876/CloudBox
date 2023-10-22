@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = "box_list"
 
-WEB_SSH_PORT = 8001
+WEB_SSH_PORT = 4433
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
