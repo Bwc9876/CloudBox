@@ -7,10 +7,10 @@ project="annular-axe-402720"
 region="northamerica-northeast2"
 zone=f"{region}-a"
 
-credentials = service_account.Credentials.from_service_account_file('key.json') if settings.DEBUG else None
+# credentials = service_account.Credentials.from_service_account_file('key.json') if settings.DEBUG else None
 # If running locally. If we're in a VM, we set this to null
 
-client = compute_v1.InstancesClient(credentials=credentials)
+client = compute_v1.InstancesClient()
 
 def create(name, ssh_pubkey):
     disk = compute_v1.AttachedDisk(
